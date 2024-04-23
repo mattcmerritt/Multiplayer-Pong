@@ -45,7 +45,10 @@ namespace Multiplayer
 
         private void FixedUpdate()
         {
-            MovePlayerRpc(moveSpeed, Input.GetAxisRaw("Vertical"));
+            if (IsOwner)
+            {
+                MovePlayerRpc(moveSpeed, Input.GetAxisRaw("Vertical"));
+            }
         }
 
         [Rpc(SendTo.Everyone)]

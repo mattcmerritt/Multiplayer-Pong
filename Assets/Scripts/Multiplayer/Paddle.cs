@@ -38,7 +38,7 @@ namespace Multiplayer
             // Disable the paddle controls for all other players than the owner
             if (!IsOwner)
             {
-                rb.constraints = RigidbodyConstraints2D.FreezeAll;
+                rb.constraints = RigidbodyConstraints2D.FreezeRotation;
                 moveSpeed = 0f;
             }
         }
@@ -54,6 +54,7 @@ namespace Multiplayer
         [Rpc(SendTo.Everyone)]
         private void MovePlayerRpc(float moveSpeed, float direction)
         {
+            Debug.Log($"Receiving speed {moveSpeed} and direction {direction}");
             rb.velocity = moveSpeed * direction * Vector2.up;
         }
     }

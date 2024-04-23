@@ -36,7 +36,7 @@ namespace Multiplayer
             }
 
             // Disable the paddle controls for all other players than the owner
-            if (!IsLocalPlayer)
+            if (!IsOwner)
             {
                 rb.constraints = RigidbodyConstraints2D.FreezeAll;
                 moveSpeed = 0f;

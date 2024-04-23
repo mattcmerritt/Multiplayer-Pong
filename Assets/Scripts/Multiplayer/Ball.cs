@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace Singleplayer
+namespace Multiplayer
 {
     public class Ball : MonoBehaviour
     {
@@ -29,8 +29,6 @@ namespace Singleplayer
 
         private void OnCollisionEnter2D(Collision2D collision)
         {
-            Debug.Log($"Ball hit {collision.gameObject}");
-
             if (collision.transform.GetComponent<Paddle>())
             {
                 // calculate where the paddle was hit to get bounce vertical direction

@@ -38,7 +38,6 @@ namespace Multiplayer
             // Disable the paddle controls for all other players than the owner
             if (!IsOwner)
             {
-                rb.constraints = RigidbodyConstraints2D.FreezeRotation;
                 moveSpeed = 0f;
             }
         }

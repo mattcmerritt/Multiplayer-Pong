@@ -45,13 +45,13 @@ namespace Multiplayer
 
         private void FixedUpdate()
         {
-            MovePlayerRpc();
+            MovePlayerRpc(moveSpeed, Input.GetAxisRaw("Vertical"));
         }
 
         [Rpc(SendTo.Everyone)]
-        private void MovePlayerRpc()
+        private void MovePlayerRpc(float moveSpeed, float direction)
         {
-            rb.velocity = moveSpeed * Input.GetAxisRaw("Vertical") * Vector2.up;
+            rb.velocity = moveSpeed * direction * Vector2.up;
         }
     }
 }

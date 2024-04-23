@@ -34,6 +34,13 @@ namespace Multiplayer
                 transform.position = new Vector3(0f, 10f, 0f);
                 Debug.LogWarning("An extra player attempted to join, paddle was spawned off screen.");
             }
+
+            // Disable the paddle controls for all other players than the owner
+            if (!IsLocalPlayer)
+            {
+                rb.constraints = RigidbodyConstraints2D.FreezeAll;
+                moveSpeed = 0f;
+            }
         }
 
         private void FixedUpdate()

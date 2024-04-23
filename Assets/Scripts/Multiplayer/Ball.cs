@@ -1,10 +1,11 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Unity.Netcode;
 
 namespace Multiplayer
 {
-    public class Ball : MonoBehaviour
+    public class Ball : NetworkBehaviour
     {
         // Ball information
         [SerializeField, Range(0f, 100f)] private float moveSpeed;
@@ -13,18 +14,32 @@ namespace Multiplayer
         // Components
         [SerializeField] private Rigidbody2D rb;
 
+        public override void OnNetworkSpawn()
+        {
+            if (!IsServer)
+            {
+                rb.simulated = false;
+            }
+        }
+
         private void Update()
         {
             if (Input.GetKeyDown(KeyCode.Space))
             {
-                // center the ball
-                transform.position = Vector3.zero;
-
-                moveDirection = Random.Range(0, 2) == 0 ? -1 : 1;
-
-                // set the speed of the ball to randomly go towards a player
-                rb.velocity = (new Vector2(moveDirection, 0f)).normalized * moveSpeed;
+                RespawnBallRpc();
             }
+        }
+
+        [Rpc(SendTo.Everyone)]
+        private void RespawnBallRpc()
+        {
+            // center the ball
+            transform.position = Vector3.zero;
+
+            moveDirection = Random.Range(0, 2) == 0 ? -1 : 1;
+
+            // set the speed of the ball to randomly go towards a player
+            rb.velocity = (new Vector2(moveDirection, 0f)).normalized * moveSpeed;
         }
 
         private void OnCollisionEnter2D(Collision2D collision)

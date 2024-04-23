@@ -53,7 +53,6 @@ namespace Multiplayer
         [Rpc(SendTo.Everyone)]
         private void MovePlayerRpc(float moveSpeed, float direction)
         {
-            Debug.Log($"Receiving speed {moveSpeed} and direction {direction}");
             rb.velocity = moveSpeed * direction * Vector2.up;
         }
     }
